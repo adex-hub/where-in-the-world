@@ -1,9 +1,11 @@
 import { useCountries } from "../contexts/CountryContext";
 import CountryCard from "./CountryCard";
-import "ldrs/grid";
+import { grid } from "ldrs";
+// import "ldrs/grid";
 
 function CountryList() {
   const { darkMode, countryData } = useCountries();
+  grid.register();
 
   if (countryData === null)
     return (
