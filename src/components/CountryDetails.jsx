@@ -3,11 +3,17 @@ import { useCountries } from "../contexts/CountryContext";
 import BackButton from "./BackButton";
 import Header from "./Header";
 import BorderCountries from "./BorderCountries";
+import Loader from "./Loader";
 
 function CountryDetails() {
-  const { countryData, countryName } = useCountries();
+  const lastSegment = window.location.pathname.split("/").pop();
+  const sanitizedSegment = lastSegment.includes("%20")
+    ? lastSegment.replace(/%20/g, " ")
+    : lastSegment;
+
+  const { countryData } = useCountries();
   const clickedCountry = countryData.filter(
-    (data) => data.name.common.toLowerCase() === countryName
+    (data) => data.name.common.toLowerCase() === sanitizedSegment
   );
 
   const [country] = useState(...clickedCountry);
@@ -17,14 +23,13 @@ function CountryDetails() {
   // For the languages
   const langArray = Object.values(country.languages);
   const [languages] = useState(...[langArray.join(", ")]);
+  console.log(languages);
 
   // For the currency
   const currencies = Object.values(country.currencies)[0].name;
   console.log(country.borders);
 
-  if (!country) return <p>Loading...</p>;
-
-  // Some countries don't have borders
+  if (!country.languages) return <Loader />;
 
   return (
     <>

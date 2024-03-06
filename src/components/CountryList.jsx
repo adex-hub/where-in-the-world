@@ -1,23 +1,8 @@
 import { useCountries } from "../contexts/CountryContext";
 import CountryCard from "./CountryCard";
-import { grid } from "ldrs";
-// import "ldrs/grid";
 
 function CountryList() {
-  const { darkMode, countryData } = useCountries();
-  grid.register();
-
-  if (countryData === null)
-    return (
-      <div className="absolute top-[50%] left-[45%] sm:left-[47.6%]">
-        <l-grid
-          size="60"
-          speed="1.5"
-          color={darkMode ? "white" : "black"}
-        ></l-grid>
-        <p className="dark:text-white text-vd_blue mt-1">loading...</p>
-      </div>
-    );
+  const { countryData } = useCountries();
 
   return (
     <div className="mt-10 mx-auto w-full flex flex-col sm:gap-6 md:grid md:gap-6 md:grid-cols-2 md:place-items-center xl:grid-cols-4 justify-center items-center">
