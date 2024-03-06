@@ -23,41 +23,4 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   );
-
-  // return (
-  //   <BrowserRouter>
-  //     <Routes>
-  //       <Route index element={<Homepage />} />
-  //       <Route path={countryName} element={<CountryDetails />} />
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
-}
-
-{
-  /*
-
-export default function App() {
-  const { countryData } = useCountries();
-
-  if (countryData === null || undefined) return <p>Loading</p>;
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Homepage />} />
-        {Array.from({ length: countryData.length }, (data, i) => (
-          <Route
-            key={i}
-            path={data?.name.common.toLowerCase()}
-            element={<CountryDetails />}
-          />
-        ))}
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-
-*/
 }
