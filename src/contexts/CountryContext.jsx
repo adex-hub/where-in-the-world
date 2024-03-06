@@ -17,20 +17,18 @@ function CountriesProvider({ children }) {
   const [countryData, setCountryData] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("Filter by Region");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      document.body.classList.add("bg-bg_dark");
-      document.body.classList.remove("bg-bg_light");
-    } else {
+    if (!darkMode) {
       document.documentElement.classList.remove("dark");
       document.body.classList.remove("bg-bg_dark");
       document.body.classList.add("bg-bg_light");
+    } else {
+      document.documentElement.classList.add("dark");
+      document.body.classList.add("bg-bg_dark");
+      document.body.classList.remove("bg-bg_light");
     }
-
-    // !darkMode && document.body.classList.toggle("bg-bg_light");
   }, [darkMode]);
 
   useEffect(() => {

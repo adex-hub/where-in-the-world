@@ -13,7 +13,7 @@ function CountryCard({ index }) {
 
   return (
     <Link to={{ pathname: `/${country.name.common.toLowerCase()}` }}>
-      <div className="dark:text-white text-vd_blue w-[327px] lg:w-[264px] lg:h-[336px] h-[416px] bg-white dark:bg-dark_blue dark:shadow-sm shadow-xl rounded-md mb-12 cursor-pointer hover:scale-105 duration-300">
+      <div className="dark:text-white text-vd_blue w-[327px] lg:w-[264px] lg:h-[336px] h-[416px] bg-white dark:bg-dark_blue dark:shadow-sm shadow-md rounded-md mb-12 cursor-pointer hover:scale-105 duration-300">
         <div className="flag">
           {countryData === null ? (
             <p>Loading...</p>
