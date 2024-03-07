@@ -4,6 +4,7 @@ import BackButton from "./BackButton";
 import Header from "./Header";
 import BorderCountries from "./BorderCountries";
 import Loader from "./Loader";
+import { NavLink } from "react-router-dom";
 
 function CountryDetails() {
   const lastSegment = window.location.pathname.split("/").pop();
@@ -11,13 +12,22 @@ function CountryDetails() {
     ? lastSegment.replace(/%20/g, " ")
     : lastSegment;
 
-  const { countryData } = useCountries();
+  const { countryData, dataBank } = useCountries();
   const clickedCountry = countryData.filter(
     (data) => data.name.common.toLowerCase() === sanitizedSegment
   );
 
   const [country] = useState(...clickedCountry);
-  console.log(...clickedCountry);
+  // console.log(...clickedCountry);
+
+  // For the borders
+  function borderNames(codes) {
+    return codes.map((code) => {
+      const country = dataBank.find((data) => data.cca3 === code);
+      return country ? country.name.common : null;
+    });
+  }
+  const borders = borderNames(country.borders);
 
   // These variables are created to due to the complexity of data extraction from the API
   // For the languages
@@ -27,7 +37,6 @@ function CountryDetails() {
 
   // For the currency
   const currencies = Object.values(country.currencies)[0].name;
-  console.log(country.borders);
 
   if (!country.languages) return <Loader />;
 
@@ -83,7 +92,7 @@ function CountryDetails() {
               </section>
             </div>
           </div>
-          <section className="sm:flex sm:flex-row sm:h-fit sm:items-center sm:gap-3 lg:col-[2]">
+          <section className="sm:flex sm:flex-row h-fit sm:items-center sm:gap-3 lg:col-[2]">
             <h3 className="font-medium text-xl sm:text-[20px] sm:font-normal md:text-[20px]">
               Border Countries:
             </h3>
@@ -93,8 +102,10 @@ function CountryDetails() {
               </p>
             )}
             <div className="flex flex-wrap gap-3">
-              {country.borders?.map((border, i) => (
-                <BorderCountries key={i}>{border}</BorderCountries>
+              {borders.map((border, i) => (
+                <NavLink to={`/${border.toLowerCase()}`} key={i}>
+                  <BorderCountries key={i}>{border}</BorderCountries>
+                </NavLink>
               ))}
             </div>
           </section>

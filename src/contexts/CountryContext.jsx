@@ -15,6 +15,7 @@ const fetchCountries = async () => {
 
 function CountriesProvider({ children }) {
   const [countryData, setCountryData] = useState(null);
+  const [dataBank, setDataBank] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("Filter by Region");
   const [darkMode, setDarkMode] = useState(true);
@@ -37,6 +38,7 @@ function CountriesProvider({ children }) {
         const data = await fetchCountries();
 
         setTimeout(setCountryData(data), 10000);
+        setDataBank(data);
       } catch (error) {
         console.error("Error fetching countries:", error);
       }
@@ -71,6 +73,7 @@ function CountriesProvider({ children }) {
         setSelected,
         darkMode,
         setDarkMode,
+        dataBank,
       }}
     >
       {children}
