@@ -11,6 +11,9 @@ export default {
       dark_gray_lmi: "hsl(0, 0%, 52%)", // Light Mode Input
       bg_light: "hsl(0, 0%, 98%)", // Light Mode Background
     },
+    fontFamily: {
+      nunito: ["Nunito Sans", "sans-serif"],
+    },
     extend: {},
   },
   plugins: [],

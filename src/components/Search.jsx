@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import { MdCancel } from "react-icons/md";
 import { useCountries } from "../contexts/CountryContext";
 
 function Search() {
@@ -15,6 +16,14 @@ function Search() {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
+      {searchQuery != "" && (
+        <MdCancel
+          size={18}
+          color={darkMode ? "white" : "grey"}
+          className={`z-20 mr-3 ${darkMode ? "bg-gray-200" : "bg-gray-900"}`}
+          onClick={() => setSearchQuery("")}
+        />
+      )}
     </div>
   );
 }

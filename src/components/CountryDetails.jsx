@@ -1,28 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCountries } from "../contexts/CountryContext";
 import BackButton from "./BackButton";
 import Header from "./Header";
 import BorderCountries from "./BorderCountries";
 import Loader from "./Loader";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 function CountryDetails() {
-  const lastSegment = window.location.pathname.split("/").pop();
-  const sanitizedSegment = lastSegment.includes("%20")
-    ? lastSegment.replace(/%20/g, " ")
-    : lastSegment;
-
+  const { countryName } = useParams();
   const { countryData, dataBank } = useCountries();
-  const clickedCountry = countryData.filter(
-    (data) => data.name.common.toLowerCase() === sanitizedSegment
+  const navigate = useNavigate();
+
+  const country = countryData.find(
+    (data) => data.name.common.toLowerCase() === countryName
   );
 
-  const [country] = useState(...clickedCountry);
-  // console.log(...clickedCountry);
+  useEffect(
+    function () {
+      if (country === undefined) {
+        navigate("*");
+      }
+    },
+    [navigate, country]
+  );
+
+  if (country === undefined) return;
+
+  console.log(country);
 
   // For the borders
   function borderNames(codes) {
-    return codes.map((code) => {
+    return codes?.map((code) => {
       const country = dataBank.find((data) => data.cca3 === code);
       return country ? country.name.common : null;
     });
@@ -43,7 +51,7 @@ function CountryDetails() {
   return (
     <>
       <Header />
-      <div className="mt-6 p-5 flex flex-col justify-start text-vd_blue dark:text-white px-4 sm:px-8 md:px-16 lg:grid lg:grid-cols-2 lg:grid-rows-1 lg:gap-8 lg:items-center">
+      <div className="font-nunito mt-20 p-5 flex flex-col justify-start text-vd_blue dark:text-white px-4 sm:px-8 md:px-16 lg:mt-28 lg:grid lg:grid-cols-2 lg:grid-rows-1 lg:gap-8 lg:items-center">
         <BackButton />
         <div>
           <img src={country.flags.svg} className="mt-16 w-full" alt="flag" />
@@ -53,7 +61,7 @@ function CountryDetails() {
             <h2 className="font-bold text-2xl mb-2 mt-8 lg:mt-16">
               {country.name.common}
             </h2>
-            <div className="sm:grid sm:grid-cols-2">
+            <div className="sm:grid sm:grid-cols-2 gap-8">
               <section className="mb-10">
                 <p className="font-semibold text-sm leading-loose">
                   Native Name:{" "}
@@ -92,9 +100,9 @@ function CountryDetails() {
               </section>
             </div>
           </div>
-          <section className="sm:flex sm:flex-row h-fit sm:items-center sm:gap-3 lg:col-[2]">
+          <section className="sm:flex sm:flex-row h-fit sm:items-start sm:gap-3 lg:col-[2]">
             <h3 className="font-medium text-xl sm:text-[20px] sm:font-normal md:text-[20px]">
-              Border Countries:
+              Border&nbsp;Countries:
             </h3>
             {country.borders === undefined && (
               <p className="dark:text-white text-vd_blue">
@@ -102,7 +110,7 @@ function CountryDetails() {
               </p>
             )}
             <div className="flex flex-wrap gap-3">
-              {borders.map((border, i) => (
+              {borders?.map((border, i) => (
                 <NavLink to={`/${border.toLowerCase()}`} key={i}>
                   <BorderCountries key={i}>{border}</BorderCountries>
                 </NavLink>

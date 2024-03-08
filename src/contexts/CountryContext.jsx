@@ -19,6 +19,7 @@ function CountriesProvider({ children }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("Filter by Region");
   const [darkMode, setDarkMode] = useState(true);
+  const [lastSegment, setLastSegment] = useState("");
 
   useEffect(() => {
     if (!darkMode) {
@@ -74,6 +75,9 @@ function CountriesProvider({ children }) {
         darkMode,
         setDarkMode,
         dataBank,
+        lastSegment,
+        setLastSegment,
+        // countryName,
       }}
     >
       {children}
