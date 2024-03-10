@@ -33,7 +33,7 @@ function CountryDetails() {
       return country ? country.name.common : null;
     });
   }
-  const borders = borderNames(country.borders);
+  const borders = country.borders ? borderNames(country.borders) : "";
 
   // These variables are created to due to the complexity of data extraction from the API
   // For the languages
@@ -46,7 +46,7 @@ function CountryDetails() {
     ? Object.values(country.currencies)[0].name
     : "";
 
-  if (!country.languages) return <Loader />;
+  if (!country.borders || !country.languages) return <Loader />;
 
   return (
     <>
