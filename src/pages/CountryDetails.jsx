@@ -46,7 +46,7 @@ function CountryDetails() {
     ? Object.values(country.currencies)[0].name
     : "";
 
-  if (!country.borders || !country.languages) return <Loader />;
+  if (!country.languages) return <Loader />;
 
   return (
     <>
@@ -110,11 +110,13 @@ function CountryDetails() {
               </p>
             )}
             <div className="flex flex-wrap gap-3">
-              {borders?.map((border, i) => (
-                <NavLink to={`/${border.toLowerCase()}`} key={i}>
-                  <BorderCountries key={i}>{border}</BorderCountries>
-                </NavLink>
-              ))}
+              {borders
+                ? borders.map((border, i) => (
+                    <NavLink to={`/${border.toLowerCase()}`} key={i}>
+                      <BorderCountries key={i}>{border}</BorderCountries>
+                    </NavLink>
+                  ))
+                : null}
             </div>
           </section>
         </div>
