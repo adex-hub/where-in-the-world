@@ -41,6 +41,10 @@ function CountryDetails() {
   const [languages] = useState(...[langArray.join(", ")]);
   console.log(languages);
 
+  // For capital
+  const capital =
+    country.capital.length > 1 ? country.capital.join(", ") : country.capital;
+
   // For the currency
   const currencies = country.currencies
     ? Object.values(country.currencies)[0].name
@@ -83,7 +87,7 @@ function CountryDetails() {
                 </p>
                 <p className="font-semibold text-sm leading-loose">
                   Capital:
-                  <span className="font-normal"> {country.capital}</span>
+                  <span className="font-normal"> {capital}</span>
                 </p>
               </section>
               <section className="mb-10">
