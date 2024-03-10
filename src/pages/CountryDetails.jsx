@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useCountries } from "../contexts/CountryContext";
-import BackButton from "./BackButton";
-import Header from "./Header";
-import BorderCountries from "./BorderCountries";
-import Loader from "./Loader";
+import BackButton from "../components/BackButton";
+import Header from "../components/Header";
+import BorderCountries from "../components/BorderCountries";
+import Loader from "../components/Loader";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 function CountryDetails() {
@@ -24,8 +24,6 @@ function CountryDetails() {
     [navigate, country]
   );
 
-  if (country === undefined) return;
-
   console.log(country);
 
   // For the borders
@@ -44,7 +42,9 @@ function CountryDetails() {
   console.log(languages);
 
   // For the currency
-  const currencies = Object.values(country.currencies)[0].name;
+  const currencies = country.currencies
+    ? Object.values(country.currencies)[0].name
+    : "";
 
   if (!country.languages) return <Loader />;
 
@@ -68,7 +68,7 @@ function CountryDetails() {
                   <span className="font-normal">{country.altSpellings[1]}</span>
                 </p>
                 <p className="font-semibold text-sm leading-loose">
-                  Population:
+                  Population:{" "}
                   <span className="font-normal">
                     {country.population.toLocaleString()}
                   </span>
@@ -101,7 +101,7 @@ function CountryDetails() {
             </div>
           </div>
           <section className="sm:flex sm:flex-row h-fit sm:items-start sm:gap-3 lg:col-[2]">
-            <h3 className="font-medium text-xl sm:text-[20px] sm:font-normal md:text-[20px]">
+            <h3 className="font-medium text-xl mb-4 sm:mb-0 sm:text-[20px] sm:font-normal md:text-[20px]">
               Border&nbsp;Countries:
             </h3>
             {country.borders === undefined && (

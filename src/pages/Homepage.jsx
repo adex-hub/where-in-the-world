@@ -1,8 +1,8 @@
 // import React from "react";
-import CountryList from "./CountryList";
-import Filter from "./Filter";
-import Header from "./Header";
-import Search from "./Search";
+import CountryList from "../components/CountryList";
+import Filter from "../components/Filter";
+import Header from "../components/Header";
+import Search from "../components/Search";
 
 function Main() {
   return (
