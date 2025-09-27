@@ -21,6 +21,7 @@ function Search() {
           size={18}
           color={darkMode ? "white" : "grey"}
           className={`z-20 mr-3 ${darkMode ? "bg-gray-200" : "bg-gray-900"}`}
+          data-testid="cancel-icon"
           onClick={() => setSearchQuery("")}
         />
       )}
